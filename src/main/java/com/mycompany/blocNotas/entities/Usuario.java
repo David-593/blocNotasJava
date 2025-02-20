@@ -10,8 +10,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -27,15 +25,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "usuarios")
-@NamedQueries({
-    @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u"),
-    @NamedQuery(name = "Usuarios.findByUsuId", query = "SELECT u FROM Usuarios u WHERE u.usuId = :usuId"),
-    @NamedQuery(name = "Usuarios.findByUsuNombres", query = "SELECT u FROM Usuarios u WHERE u.usuNombres = :usuNombres"),
-    @NamedQuery(name = "Usuarios.findByUsuApellidos", query = "SELECT u FROM Usuarios u WHERE u.usuApellidos = :usuApellidos"),
-    @NamedQuery(name = "Usuarios.findByUsuNacimiento", query = "SELECT u FROM Usuarios u WHERE u.usuNacimiento = :usuNacimiento"),
-    @NamedQuery(name = "Usuarios.findByUsuEmail", query = "SELECT u FROM Usuarios u WHERE u.usuEmail = :usuEmail"),
-    @NamedQuery(name = "Usuarios.findByUsuEstado", query = "SELECT u FROM Usuarios u WHERE u.usuEstado = :usuEstado"),
-    @NamedQuery(name = "Usuarios.findByUsuClave", query = "SELECT u FROM Usuarios u WHERE u.usuClave = :usuClave")})
 public class Usuario implements Serializable {
     
     @Id
@@ -66,6 +55,16 @@ public class Usuario implements Serializable {
     
     public Usuario(){
         
+    }
+    
+    //constructor con parametros
+    public Usuario (String usuNombres, String usuApellidos,Date usuNacimiento, String usuEmail, Boolean usuEstado , String usuClave ){
+        this.usuNombres = usuNombres;
+        this.usuApellidos = usuApellidos;
+        this.usuNacimiento = usuNacimiento;
+        this.usuEmail = usuEmail;
+        this.usuEstado = usuEstado;
+        this.usuClave = usuClave;
     }
 
     //GETTERS AND SETTERS

@@ -25,11 +25,6 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "nota")
-@NamedQueries({
-    @NamedQuery(name = "Nota.findAll", query = "SELECT n FROM Nota n"),
-    @NamedQuery(name = "Nota.findByNotaId", query = "SELECT n FROM Nota n WHERE n.notaId = :notaId"),
-    @NamedQuery(name = "Nota.findByNotaTitulo", query = "SELECT n FROM Nota n WHERE n.notaTitulo = :notaTitulo"),
-    @NamedQuery(name = "Nota.findByNotaDescripcion", query = "SELECT n FROM Nota n WHERE n.notaDescripcion = :notaDescripcion")})
 public class Nota implements Serializable {
 
     @Id
@@ -59,6 +54,12 @@ public class Nota implements Serializable {
        
    }
 
+   //Constructor con parametros
+   public void Nota (String notaTitulo,String notaDescripcion){
+    this.notaTitulo = notaTitulo;
+    this.notaDescripcion = notaDescripcion;
+   }
+   
    //GETTERS AND SETTERS
     public Long getNotaId() {
         return notaId;

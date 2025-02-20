@@ -26,10 +26,6 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "categoria")
-@NamedQueries({
-    @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
-    @NamedQuery(name = "Categoria.findByCateId", query = "SELECT c FROM Categoria c WHERE c.cateId = :cateId"),
-    @NamedQuery(name = "Categoria.findByCateNombre", query = "SELECT c FROM Categoria c WHERE c.cateNombre = :cateNombre")})
 public class Categoria implements Serializable {
 
     @Id
