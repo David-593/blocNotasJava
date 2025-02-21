@@ -11,8 +11,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -44,6 +42,11 @@ public class Categoria implements Serializable {
 
     public Categoria(){
         
+    }
+    
+    //Constructor con parametros
+    public Categoria (String cateNombre){
+        this.cateNombre = cateNombre;
     }
     
     //GETTERS AND SETTERS
