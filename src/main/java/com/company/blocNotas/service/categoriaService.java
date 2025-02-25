@@ -18,8 +18,16 @@ public class categoriaService {
     private EntityManager em;
     
     //Create
-    public void createCategoria (Categoria categoria){
-        em.persist(categoria);
+    public void createCategoria (Categoria categoria) throws Exception{
+        if (categoria.getCateNombre()== null){
+            throw new Exception("Este campo debe ser obligatorio");
+        }
+        try {
+            em.persist(categoria); 
+        } catch (Exception e) {
+            throw new Exception("Ocurrió un error al guardar en la base de datos"+ e.getMessage());
+        }
+       
     }
     //Read by id
     public Categoria getCategoriaById(Long cateId){
