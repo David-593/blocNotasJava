@@ -53,7 +53,7 @@ public class Nota implements Serializable {
    }
 
    //Constructor con parametros
-   public void Nota (String notaTitulo,String notaDescripcion){
+   public void Nota ( String notaTitulo,String notaDescripcion){
     this.notaTitulo = notaTitulo;
     this.notaDescripcion = notaDescripcion;
    }

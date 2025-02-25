@@ -58,7 +58,7 @@ public class Usuario implements Serializable {
     }
     
     //constructor con parametros
-    public Usuario (String usuNombres, String usuApellidos,Date usuNacimiento, String usuEmail, Boolean usuEstado , String usuClave ){
+    public Usuario ( String usuNombres, String usuApellidos,Date usuNacimiento, String usuEmail, Boolean usuEstado , String usuClave ){
         this.usuNombres = usuNombres;
         this.usuApellidos = usuApellidos;
         this.usuNacimiento = usuNacimiento;

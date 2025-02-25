@@ -44,8 +44,8 @@ public class Categoria implements Serializable {
         
     }
     
-    //Constructor con parametros
-    public Categoria (String cateNombre){
+    //Constructor con parametros 
+    public Categoria (Long cateId, String cateNombre){
         this.cateNombre = cateNombre;
     }
     
