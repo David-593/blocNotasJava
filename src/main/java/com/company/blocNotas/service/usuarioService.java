@@ -17,29 +17,59 @@ public class usuarioService {
     public void createUser(Usuario usuario) throws Exception{
         if (usuario.getUsuNombres() == null || usuario.getUsuApellidos() == null 
             || usuario.getUsuNacimiento() == null || usuario.getUsuEmail() == null 
-            || usuario.getUsuEstado() == null || usuario.getUsuClave() == null){
+            || usuario.getUsuClave() == null){
             throw new Exception("Estos campos son obligatorios");
         } 
-        try {
-            em.persist(usuario); 
-        } catch (Exception e) {
-           throw new Exception("Error al guardar en la base de datos" + e.getMessage()); 
+        
+        if (usuario.getUsuEstado() == null){
+            usuario.setUsuEstado(true);
         }
+            em.persist(usuario); 
         
     }
     
-    //delete
-    public void deleteUser(Usuario usuario){
-        em.remove(usuario);
-    }
-
     //read user by id
-    public Usuario getUserById(Long usuId){
-        return em.find(Usuario.class, usuId);
+    public Usuario getUserById(Long usuId) throws Exception{
+        Usuario usuario = em.find(Usuario.class, usuId);
+        if (usuario == null){
+            throw new Exception("Usuario no encontrado");
+        }
+        return usuario;
     }
     
     //update
-    public Usuario updateUser(Usuario usuario){
+    public Usuario updateUser(Long usuId, Usuario usuarioActualizado) throws Exception{
+        Usuario usuario = em.find(Usuario.class, usuId);
+        if (usuario == null){
+            throw new Exception("Usuario no encontrado");
+        }
+        if (usuarioActualizado.getUsuNombres() != null){
+            usuario.setUsuNombres(usuarioActualizado.getUsuNombres());
+        }
+        if (usuarioActualizado.getUsuApellidos() != null){ 
+            usuario.setUsuApellidos(usuarioActualizado.getUsuApellidos());
+        }
+        if (usuarioActualizado.getUsuNacimiento() != null){
+            usuario.setUsuNacimiento(usuarioActualizado.getUsuNacimiento());
+        }
+        if (usuarioActualizado.getUsuEmail() != null){
+            usuario.setUsuEmail(usuarioActualizado.getUsuEmail());
+        }
+        if (usuarioActualizado.getUsuEstado() != null){
+            usuario.setUsuEstado(usuarioActualizado.getUsuEstado());
+        }
+        if(usuarioActualizado.getUsuClave() != null){
+            usuario.setUsuClave(usuarioActualizado.getUsuClave());
+        }
         return em.merge(usuario);
+    }
+
+    //delete
+    public void deleteUser(Long usuId) throws Exception{
+        Usuario usuario = em.find(Usuario.class, usuId);
+        if (usuario == null){
+            throw new Exception ("Usuario no encontrado");
+        }
+        em.remove(usuario);
     }
 }
