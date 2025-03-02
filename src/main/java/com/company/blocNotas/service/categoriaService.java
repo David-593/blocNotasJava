@@ -6,6 +6,7 @@ package com.company.blocNotas.service;
 
 import com.mycompany.blocNotas.entities.Categoria;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 
 /**
@@ -30,17 +31,32 @@ public class categoriaService {
        
     }
     //Read by id
-    public Categoria getCategoriaById(Long cateId){
-        return em.find(Categoria.class, cateId);
+    public Categoria getCategoriaById(Long cateId) throws Exception{
+         Categoria categoria = em.find(Categoria.class, cateId);
+         if (categoria == null){
+             throw new Exception("No se ha encontrado esta categoria");
+         }
+         return categoria;
     }
     
     //Update
-    public Categoria updateCategoria(Categoria categoria){
+    public Categoria updateCategoria(Long cateId, Categoria categoriaActualizada)throws EntityNotFoundException{
+        Categoria categoria = em.find(Categoria.class, cateId);
+        if(categoria == null){
+            throw new EntityNotFoundException("No se ha encontrado esta categoria");
+        }
+        if(categoria.getCateNombre() == null || categoriaActualizada.getCateNombre().trim().isEmpty()){
+            throw new IllegalArgumentException("Este nombre no puede ser vacio o nulo");
+        }
         return em.merge(categoria);
     }
     
     //Delete
-    public void deleteCategoria(Categoria categoria){
+    public void deleteCategoria(Long cateId)throws EntityNotFoundException{
+        Categoria categoria = em.find(Categoria.class, cateId);
+        if (categoria == null){
+            throw new EntityNotFoundException("No se ha encontrado esta categoria");
+        }
         em.remove(categoria);
     }
 }
