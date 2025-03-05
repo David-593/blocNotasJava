@@ -8,6 +8,7 @@ import com.mycompany.blocNotas.entities.Categoria;
 import com.mycompany.blocNotas.entities.Nota;
 import com.mycompany.blocNotas.entities.Usuario;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 
 /**
@@ -43,16 +44,34 @@ public class notaService {
     }
     
     //Read by id
-    public Nota FindByIdNota(Long notaId){
-        return em.find(Nota.class, notaId);
+    public Nota FindByIdNota(Long notaId)throws EntityNotFoundException{
+        Nota nota = em.find(Nota.class, notaId);
+        if(nota == null){
+            throw new EntityNotFoundException("No se ha encontrado esta nota");
+        }
+        return nota;
     }
     
     //Delete
-    public void deleteNota(Nota nota){
+    public void deleteNota(Long notaId) throws Exception{
+        Nota nota = em.find(Nota.class, notaId);
+        if (nota == null){
+            throw new Exception("No se ha encontrado esta nota");
+        }
         em.remove(nota);
     }
     //Update
-    public Nota updateNota(Nota nota){
+    public Nota updateNota(Long notaId, Nota notaActualizada) throws Exception{
+        Nota nota = em.find(Nota.class, notaId);
+        if (nota == null){
+            throw new Exception("No se ha encotrado esta nota");
+        }
+        if (notaActualizada.getNotaTitulo() != null){
+            nota.setNotaTitulo(notaActualizada.getNotaTitulo());
+        }
+        if (notaActualizada.getNotaDescripcion() != null){
+            nota.setNotaDescripcion(notaActualizada.getNotaDescripcion());
+        }
         return em.merge(nota);
     }
    
