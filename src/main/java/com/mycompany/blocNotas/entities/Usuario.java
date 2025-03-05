@@ -12,12 +12,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -39,8 +37,7 @@ public class Usuario implements Serializable {
     private String usuApellidos;
     @NotNull
     @Column(name = "usu_nacimiento")
-    @Temporal(TemporalType.DATE)
-    private Date usuNacimiento;
+    private LocalDate usuNacimiento;
     @NotNull
     @Column(name = "usu_email")
     private String usuEmail;
@@ -58,7 +55,7 @@ public class Usuario implements Serializable {
     }
     
     //constructor con parametros
-    public Usuario ( String usuNombres, String usuApellidos,Date usuNacimiento, String usuEmail, Boolean usuEstado , String usuClave ){
+    public Usuario ( String usuNombres, String usuApellidos,LocalDate usuNacimiento, String usuEmail, Boolean usuEstado , String usuClave ){
         this.usuNombres = usuNombres;
         this.usuApellidos = usuApellidos;
         this.usuNacimiento = usuNacimiento;
@@ -92,11 +89,11 @@ public class Usuario implements Serializable {
         this.usuApellidos = usuApellidos;
     }
 
-    public Date getUsuNacimiento() {
+    public LocalDate getUsuNacimiento() {
         return usuNacimiento;
     }
 
-    public void setUsuNacimiento(Date usuNacimiento) {
+    public void setUsuNacimiento(LocalDate usuNacimiento) {
         this.usuNacimiento = usuNacimiento;
     }
 
