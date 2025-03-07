@@ -7,6 +7,7 @@ package com.mycompany.blocNotas.entities;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,8 +15,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Collection;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -47,8 +48,8 @@ public class Usuario implements Serializable {
     private String usuClave;
 
     //relacion
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuId")
-    private Collection<Nota> notaCollection;
+    @OneToMany(fetch = FetchType.LAZY ,cascade = CascadeType.ALL, mappedBy = "usuId")
+    private List<Nota> notaList;
     
     public Usuario(){
         
@@ -121,12 +122,12 @@ public class Usuario implements Serializable {
         this.usuClave = usuClave;
     }
 
-    public Collection<Nota> getNotaCollection() {
-        return notaCollection;
+    public List<Nota> getNotaList() {
+        return notaList;
     }
 
-    public void setNotaCollection(Collection<Nota> notaCollection) {
-        this.notaCollection = notaCollection;
+    public void setNotaList(List<Nota> notaList) {
+        this.notaList = notaList;
     }
 
 }

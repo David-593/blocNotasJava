@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -38,7 +38,7 @@ public class Categoria implements Serializable {
 
     //relacion 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cateId")
-    private Collection<Nota> notaCollection;
+    private List<Nota> notaList;
 
     public Categoria(){
         
@@ -67,12 +67,12 @@ public class Categoria implements Serializable {
         this.cateNombre = cateNombre;
     }
 
-    public Collection<Nota> getNotaCollection() {
-        return notaCollection;
+    public List<Nota> getNotaList() {
+        return notaList;
     }
 
-    public void setNotaCollection(Collection<Nota> notaCollection) {
-        this.notaCollection = notaCollection;
+    public void setNotaCollection(List<Nota> notaList) {
+        this.notaList = notaList;
     }
     
 }
