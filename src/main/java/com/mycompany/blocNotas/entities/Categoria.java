@@ -8,6 +8,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,10 +19,6 @@ import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- *
- * @author andre
- */
 @Entity
 @Table(name = "categoria")
 public class Categoria implements Serializable {
@@ -37,7 +34,7 @@ public class Categoria implements Serializable {
     private String cateNombre;
 
     //relacion 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cateId")
+    @OneToMany(fetch = FetchType.LAZY ,cascade = CascadeType.ALL, mappedBy = "cateId")
     private List<Nota> notaList;
 
     public Categoria(){
