@@ -28,10 +28,10 @@ public class usuarioController {
     
     // Obtener usuario por ID
     @GET
-    @Path("/{id}")
-    public Response getUsersById(@PathParam("id") Long id) {
+    @Path("/{usuId}")
+    public Response getUsersById(@PathParam("usuId") Long usuId) {
         try {
-            usuarioDto usuario = usuarioService.getUserById(id);
+            usuarioDto usuario = usuarioService.getUserById(usuId);
             return Response.ok(usuario).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
@@ -40,8 +40,8 @@ public class usuarioController {
 
     // Actualizar usuario
     @PUT
-    @Path("/{id}")
-    public Response updateUsers(@PathParam("id") Long id, Usuario usuario) {
+    @Path("/{usuId}")
+    public Response updateUsers(@PathParam("usuId") Long id, Usuario usuario) {
         try {
             Usuario updatedUser = usuarioService.updateUser(id, usuario);
             return Response.ok(updatedUser).build();
@@ -52,10 +52,10 @@ public class usuarioController {
 
     // Eliminar usuario
     @DELETE
-    @Path("/{id}")
-    public Response deleteUsers(@PathParam("id") Long id) {
+    @Path("/{usuId}")
+    public Response deleteUsers(@PathParam("usuId") Long usuId) {
         try {
-            usuarioService.deleteUser(id);
+            usuarioService.deleteUser(usuId);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
