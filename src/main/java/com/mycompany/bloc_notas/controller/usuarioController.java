@@ -1,6 +1,7 @@
 
 package com.mycompany.bloc_notas.controller;
 
+import com.company.blocNotas.dto.usuarioDto;
 import com.company.blocNotas.service.usuarioService;
 import com.mycompany.blocNotas.entities.Usuario;
 import jakarta.ejb.EJB;
@@ -30,7 +31,7 @@ public class usuarioController {
     @Path("/{id}")
     public Response getUsersById(@PathParam("id") Long id) {
         try {
-            Usuario usuario = usuarioService.getUserById(id);
+            usuarioDto usuario = usuarioService.getUserById(id);
             return Response.ok(usuario).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
