@@ -4,15 +4,14 @@
  */
 package com.company.blocNotas.service;
 
+import com.company.blocNotas.dto.categoriaDto;
 import com.mycompany.blocNotas.entities.Categoria;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 
-/**
- *
- * @author andre
- */
+@Stateless
 public class categoriaService {
     
     @PersistenceContext(name = "pruebaPU")
@@ -31,12 +30,12 @@ public class categoriaService {
        
     }
     //Read by id
-    public Categoria getCategoriaById(Long cateId) throws Exception{
+    public categoriaDto getCategoriaById(Long cateId) throws Exception{
          Categoria categoria = em.find(Categoria.class, cateId);
          if (categoria == null){
              throw new Exception("No se ha encontrado esta categoria");
          }
-         return categoria;
+         return new categoriaDto(categoria);
     }
     
     //Update
