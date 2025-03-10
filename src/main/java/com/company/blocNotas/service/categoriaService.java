@@ -40,7 +40,7 @@ public class categoriaService {
     }
     
     //Read all categories
-    public List<Categoria> getAllCategories(){
+    public List<Categoria> getAllCategorie(){
         return em.createQuery("SELECT c FROM Categoria c LEFT JOIN FETCH c.notaList", Categoria.class).getResultList();
     }
     
