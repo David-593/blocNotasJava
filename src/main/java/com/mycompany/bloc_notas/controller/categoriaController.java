@@ -48,7 +48,7 @@ public class categoriaController {
     @GET
     public Response getAllCategories(){
         try {
-            List<Categoria> categorias = categoriaService.getAllCategories();
+            List<Categoria> categorias = categoriaService.getAllCategorie();
             if (categorias.isEmpty()){
                 return Response.status(Response.Status.NO_CONTENT).build();
             }
