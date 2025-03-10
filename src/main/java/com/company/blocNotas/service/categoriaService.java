@@ -10,6 +10,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 public class categoriaService {
@@ -38,15 +39,21 @@ public class categoriaService {
          return new categoriaDto(categoria);
     }
     
+    //Read all categories
+    public List<Categoria> getAllCategories(){
+        return em.createQuery("SELECT c FROM Categoria c LEFT JOIN FETCH c.notaList", Categoria.class).getResultList();
+    }
+    
     //Update
-    public Categoria updateCategoria(Long cateId, Categoria categoriaActualizada)throws EntityNotFoundException{
+    public Categoria updateCategoria(Long cateId, String newCateName)throws EntityNotFoundException{
         Categoria categoria = em.find(Categoria.class, cateId);
         if(categoria == null){
-            throw new EntityNotFoundException("No se ha encontrado esta categoria");
+            throw new EntityNotFoundException("No se ha encontrado esta categoria" + cateId);
         }
-        if(categoria.getCateNombre() == null || categoriaActualizada.getCateNombre().trim().isEmpty()){
+        if(newCateName == null || newCateName.trim().isEmpty()){
             throw new IllegalArgumentException("Este nombre no puede ser vacio o nulo");
         }
+        categoria.setCateNombre(newCateName);
         return em.merge(categoria);
     }
     
