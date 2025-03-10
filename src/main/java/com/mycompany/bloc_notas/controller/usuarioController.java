@@ -7,6 +7,7 @@ import com.mycompany.blocNotas.entities.Usuario;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
+import java.util.List;
 
 @Path("/usuarios")
 @Produces(MediaType.APPLICATION_JSON)
@@ -35,6 +36,19 @@ public class usuarioController {
             return Response.ok(usuario).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
+    }
+    
+    @GET
+    public Response getAllUsers(){
+        try {
+            List<Usuario> usuarios = usuarioService.getAllUser();
+            if(usuarios.isEmpty()){
+                return Response.status(Response.Status.NO_CONTENT).build();
+            }
+            return Response.ok(usuarios).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
 
