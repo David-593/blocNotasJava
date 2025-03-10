@@ -6,6 +6,7 @@ import com.mycompany.blocNotas.entities.Usuario;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.util.List;
 
 
 @Stateless
@@ -50,6 +51,11 @@ public class usuarioService {
             System.err.println("Error inesperado al obtener usuario: " + e.getMessage());
         }
         return null;
+    }
+    
+    //read all users
+    public List<Usuario> getAllUser(){
+        return em.createQuery("SELECT c FROM Usuario c LEFT JOIN FETCH c.notaList", Usuario.class).getResultList();
     }
     
     //update
