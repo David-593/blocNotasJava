@@ -47,15 +47,18 @@ public class Nota implements Serializable {
     @JoinColumn(name = "usu_id", referencedColumnName = "usu_id")
     @ManyToOne(optional = false)
     private Usuario usuId;
-
+    
+    //constructor sin parametros
    public Nota(){
        
    }
 
    //Constructor con parametros
-   public void Nota ( String notaTitulo,String notaDescripcion){
+   public void Nota ( String notaTitulo,String notaDescripcion, Categoria cateId, Usuario usuId){
     this.notaTitulo = notaTitulo;
     this.notaDescripcion = notaDescripcion;
+    this.cateId = cateId;
+    this.usuId = usuId;
    }
    
    //GETTERS AND SETTERS
