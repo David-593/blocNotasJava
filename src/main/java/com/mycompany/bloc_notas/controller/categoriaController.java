@@ -61,9 +61,10 @@ public class categoriaController {
     //Update by id
     @PUT
     @Path("/{cateId}")
-    public Response updateCategorie(@PathParam("cateId") Long cateId, String newCateName){
+    public Response updateCategorie(@PathParam("cateId") Long cateId, Categoria categoria){
         try{
-            Categoria categoriaUpdated = categoriaService.updateCategoria(cateId, newCateName);
+            String cateNombre = categoria.getCateNombre();
+            Categoria categoriaUpdated = categoriaService.updateCategoria(cateId, cateNombre);
             return Response.ok(categoriaUpdated).build();
         }catch(EntityNotFoundException e){
             return Response.status(Response.Status.BAD_REQUEST).build();
