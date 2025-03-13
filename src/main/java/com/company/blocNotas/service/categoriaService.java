@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.company.blocNotas.service;
 
 import com.company.blocNotas.dto.categoriaDto;
@@ -45,15 +42,15 @@ public class categoriaService {
     }
     
     //Update
-    public Categoria updateCategoria(Long cateId, String newCateName)throws EntityNotFoundException{
+    public Categoria updateCategoria(Long cateId, String cateNombre)throws EntityNotFoundException{
         Categoria categoria = em.find(Categoria.class, cateId);
         if(categoria == null){
             throw new EntityNotFoundException("No se ha encontrado esta categoria" + cateId);
         }
-        if(newCateName == null || newCateName.trim().isEmpty()){
+        if(cateNombre == null || cateNombre.trim().isEmpty()){
             throw new IllegalArgumentException("Este nombre no puede ser vacio o nulo");
         }
-        categoria.setCateNombre(newCateName);
+        categoria.setCateNombre(cateNombre);
         return em.merge(categoria);
     }
     
