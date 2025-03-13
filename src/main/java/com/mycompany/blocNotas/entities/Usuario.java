@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.blocNotas.entities;
 
 import jakarta.persistence.CascadeType;
@@ -17,11 +14,9 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.json.bind.annotation.JsonbDateFormat;
 
-/**
- *
- * @author andre
- */
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
@@ -38,6 +33,7 @@ public class Usuario implements Serializable {
     private String usuApellidos;
     @NotNull
     @Column(name = "usu_nacimiento")
+    @JsonbDateFormat("yyyy-MM-dd")
     private LocalDate usuNacimiento;
     @NotNull
     @Column(name = "usu_email")
@@ -49,8 +45,10 @@ public class Usuario implements Serializable {
 
     //relacion
     @OneToMany(fetch = FetchType.LAZY ,cascade = CascadeType.ALL, mappedBy = "usuId")
+    @JsonIgnore
     private List<Nota> notaList;
     
+    //constructor vacio
     public Usuario(){
         
     }
