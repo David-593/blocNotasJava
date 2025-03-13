@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.company.blocNotas.service;
 
 import com.company.blocNotas.dto.NotaDto;
@@ -34,10 +31,6 @@ public class notaService {
         if (usuario == null || categoria == null) {
             throw new Exception("Usuario o Categoria no encontrados");
         }
-
-        nota.setUsuId(usuario);
-        nota.setCateId(categoria);
-
         em.persist(nota);
         
        try{
