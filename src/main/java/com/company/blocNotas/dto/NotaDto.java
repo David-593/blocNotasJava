@@ -1,21 +1,23 @@
 
 package com.company.blocNotas.dto;
 
-import com.mycompany.blocNotas.entities.Nota;
+import com.mycompany.blocNotas.entities.NotaEntity;
 
 public class NotaDto {
+    
     private Long notaId;
     private String notaTitulo;
     private String notaDescripcion;
     private Long usuId;
     private Long cateId;
     
-    
+    //Constructor vacio
     public NotaDto(){
         
     }
     
-    public NotaDto(Nota nota){
+    //constructor para convertir NotaEntity en un dto
+    public NotaDto(NotaEntity nota){
         this.notaId = nota.getNotaId();
         this.notaTitulo = nota.getNotaTitulo();
         this.notaDescripcion = nota.getNotaDescripcion();
@@ -23,6 +25,7 @@ public class NotaDto {
         this.usuId = nota.getUsuId().getUsuId();
     }
 
+    //Getters y setters
     public Long getCateId() {
         return cateId;
     }

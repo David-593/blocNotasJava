@@ -19,7 +19,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "categoria")
-public class Categoria implements Serializable {
+public class CategoriaEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,14 +34,14 @@ public class Categoria implements Serializable {
     //relacion 
     @OneToMany(fetch = FetchType.LAZY ,cascade = CascadeType.ALL, mappedBy = "cateId")
     @JsonIgnore
-    private List<Nota> notaList;
+    private List<NotaEntity> notaList;
 
-    public Categoria(){
+    public CategoriaEntity(){
         
     }
     
     //Constructor con parametros 
-    public Categoria (Long cateId, String cateNombre){
+    public CategoriaEntity (Long cateId, String cateNombre){
         this.cateNombre = cateNombre;
     }
     
@@ -63,11 +63,11 @@ public class Categoria implements Serializable {
         this.cateNombre = cateNombre;
     }
 
-    public List<Nota> getNotaList() {
+    public List<NotaEntity> getNotaList() {
         return notaList;
     }
 
-    public void setNotaCollection(List<Nota> notaList) {
+    public void setNotaCollection(List<NotaEntity> notaList) {
         this.notaList = notaList;
     }
     

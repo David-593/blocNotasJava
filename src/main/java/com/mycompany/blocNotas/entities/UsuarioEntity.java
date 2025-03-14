@@ -19,7 +19,7 @@ import jakarta.json.bind.annotation.JsonbDateFormat;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements Serializable {
+public class UsuarioEntity implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,15 +46,15 @@ public class Usuario implements Serializable {
     //relacion
     @OneToMany(fetch = FetchType.LAZY ,cascade = CascadeType.ALL, mappedBy = "usuId")
     @JsonIgnore
-    private List<Nota> notaList;
+    private List<NotaEntity> notaList;
     
     //constructor vacio
-    public Usuario(){
+    public UsuarioEntity(){
         
     }
     
     //constructor con parametros
-    public Usuario ( String usuNombres, String usuApellidos,LocalDate usuNacimiento, String usuEmail, Boolean usuEstado , String usuClave ){
+    public UsuarioEntity ( String usuNombres, String usuApellidos,LocalDate usuNacimiento, String usuEmail, Boolean usuEstado , String usuClave ){
         this.usuNombres = usuNombres;
         this.usuApellidos = usuApellidos;
         this.usuNacimiento = usuNacimiento;
@@ -120,11 +120,11 @@ public class Usuario implements Serializable {
         this.usuClave = usuClave;
     }
 
-    public List<Nota> getNotaList() {
+    public List<NotaEntity> getNotaList() {
         return notaList;
     }
 
-    public void setNotaList(List<Nota> notaList) {
+    public void setNotaList(List<NotaEntity> notaList) {
         this.notaList = notaList;
     }
 

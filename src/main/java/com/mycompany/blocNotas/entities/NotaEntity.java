@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.blocNotas.entities;
 
 import jakarta.persistence.Basic;
@@ -17,13 +14,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 
-/**
- *
- * @author andre
- */
+
 @Entity
 @Table(name = "nota")
-public class Nota implements Serializable {
+public class NotaEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,18 +37,18 @@ public class Nota implements Serializable {
     //relaciones con categoria y usuario
     @JoinColumn(name = "cate_id", referencedColumnName = "cate_id")
     @ManyToOne(optional = false)
-    private Categoria cateId;
+    private CategoriaEntity cateId;
     @JoinColumn(name = "usu_id", referencedColumnName = "usu_id")
     @ManyToOne(optional = false)
-    private Usuario usuId;
+    private UsuarioEntity usuId;
     
     //constructor sin parametros
-   public Nota(){
+   public NotaEntity(){
        
    }
 
    //Constructor con parametros
-   public void Nota ( String notaTitulo,String notaDescripcion, Categoria cateId, Usuario usuId){
+   public void Nota ( String notaTitulo,String notaDescripcion, CategoriaEntity cateId, UsuarioEntity usuId){
     this.notaTitulo = notaTitulo;
     this.notaDescripcion = notaDescripcion;
     this.cateId = cateId;
@@ -86,19 +80,19 @@ public class Nota implements Serializable {
         this.notaDescripcion = notaDescripcion;
     }
 
-    public Categoria getCateId() {
+    public CategoriaEntity getCateId() {
         return cateId;
     }
 
-    public void setCateId(Categoria cateId) {
+    public void setCateId(CategoriaEntity cateId) {
         this.cateId = cateId;
     }
 
-    public Usuario getUsuId() {
+    public UsuarioEntity getUsuId() {
         return usuId;
     }
 
-    public void setUsuId(Usuario usuId) {
+    public void setUsuId(UsuarioEntity usuId) {
         this.usuId = usuId;
     }
    
