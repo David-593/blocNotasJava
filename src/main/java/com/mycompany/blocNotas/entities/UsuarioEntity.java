@@ -27,21 +27,21 @@ public class UsuarioEntity implements Serializable {
     private Long usuId;
     @NotNull
     @Column(name = "usu_nombres")
-    private String usuNombres;
+    private String name;
     @NotNull
     @Column(name = "usu_apellidos")
-    private String usuApellidos;
+    private String lastName;
     @NotNull
     @Column(name = "usu_nacimiento")
     @JsonbDateFormat("yyyy-MM-dd")
-    private LocalDate usuNacimiento;
+    private LocalDate birthDay;
     @NotNull
     @Column(name = "usu_email")
-    private String usuEmail;
+    private String email;
     @Column(name= "usu_estado")
-    private Boolean usuEstado;
+    private Boolean status;
     @Column(name = "usu_clave") //cambiar a hash value luego (ByCritp)
-    private String usuClave;
+    private String password;
 
     //relacion
     @OneToMany(fetch = FetchType.LAZY ,cascade = CascadeType.ALL, mappedBy = "usuId")
@@ -54,16 +54,17 @@ public class UsuarioEntity implements Serializable {
     }
     
     //constructor con parametros
-    public UsuarioEntity ( String usuNombres, String usuApellidos,LocalDate usuNacimiento, String usuEmail, Boolean usuEstado , String usuClave ){
-        this.usuNombres = usuNombres;
-        this.usuApellidos = usuApellidos;
-        this.usuNacimiento = usuNacimiento;
-        this.usuEmail = usuEmail;
-        this.usuEstado = usuEstado;
-        this.usuClave = usuClave;
+    public UsuarioEntity ( String name, String lastName,LocalDate birthDay, String email, Boolean status, String password){
+        this.name = name;
+        this.lastName = lastName;
+        this.birthDay = birthDay;
+        this.email = email;
+        this.password = password;
+        this.status = status;
     }
 
     //GETTERS AND SETTERS
+
     public Long getUsuId() {
         return usuId;
     }
@@ -72,52 +73,52 @@ public class UsuarioEntity implements Serializable {
         this.usuId = usuId;
     }
 
-    public String getUsuNombres() {
-        return usuNombres;
+    public String getName() {
+        return name;
     }
 
-    public void setUsuNombres(String usuNombres) {
-        this.usuNombres = usuNombres;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUsuApellidos() {
-        return usuApellidos;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setUsuApellidos(String usuApellidos) {
-        this.usuApellidos = usuApellidos;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public LocalDate getUsuNacimiento() {
-        return usuNacimiento;
+    public LocalDate getBirthDay() {
+        return birthDay;
     }
 
-    public void setUsuNacimiento(LocalDate usuNacimiento) {
-        this.usuNacimiento = usuNacimiento;
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
     }
 
-    public String getUsuEmail() {
-        return usuEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsuEmail(String usuEmail) {
-        this.usuEmail = usuEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Boolean getUsuEstado() {
-        return usuEstado;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setUsuEstado(Boolean usuEstado) {
-        this.usuEstado = usuEstado;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
-    public String getUsuClave() {
-        return usuClave;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUsuClave(String usuClave) {
-        this.usuClave = usuClave;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<NotaEntity> getNotaList() {
@@ -127,5 +128,6 @@ public class UsuarioEntity implements Serializable {
     public void setNotaList(List<NotaEntity> notaList) {
         this.notaList = notaList;
     }
+    
 
 }

@@ -1,12 +1,12 @@
 package com.company.blocNotas.service;
 
 
-import com.company.blocNotas.dto.usuarioDto;
-import com.mycompany.blocNotas.entities.UsuarioEntity;
+//import com.company.blocNotas.dto.UsuarioDto;
+//import com.mycompany.blocNotas.entities.UsuarioEntity;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import java.util.List;
+//import java.util.List;
 
 
 @Stateless
@@ -16,7 +16,7 @@ public class usuarioService {
     private EntityManager em;
     
     //create
-    public void createUser(UsuarioEntity usuario) throws Exception{
+    /*public void createUser(UsuarioEntity usuario) throws Exception{
         try{
         if (usuario.getUsuNombres() == null || usuario.getUsuApellidos() == null 
             || usuario.getUsuNacimiento() == null || usuario.getUsuEmail() == null 
@@ -38,13 +38,13 @@ public class usuarioService {
     }
     
     //read user by id
-    public usuarioDto getUserById(Long usuId) {
+    public UsuarioDto getUserById(Long usuId) {
         try {
             UsuarioEntity usuario = em.find(UsuarioEntity.class, usuId);
             if (usuario == null) {
                 throw new IllegalArgumentException("Usuario no encontrado");
             }
-            return new usuarioDto(usuario);
+            return new UsuarioDto(usuario);
         } catch (IllegalArgumentException e) {
             System.err.println("Error de validación: " + e.getMessage());
         } catch (Exception e) {
@@ -107,5 +107,5 @@ public class usuarioService {
         } catch (Exception e) {
             System.err.println("Error inesperado al eliminar usuario: " + e.getMessage());
         }
-    }
+    }*/
 }

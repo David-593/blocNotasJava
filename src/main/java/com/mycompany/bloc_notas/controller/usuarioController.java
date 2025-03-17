@@ -1,13 +1,13 @@
 
 package com.mycompany.bloc_notas.controller;
 
-import com.company.blocNotas.dto.usuarioDto;
+//import com.company.blocNotas.dto.UsuarioDto;
 import com.company.blocNotas.service.usuarioService;
-import com.mycompany.blocNotas.entities.UsuarioEntity;
+//import com.mycompany.blocNotas.entities.UsuarioEntity;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
-import java.util.List;
+//import java.util.List;
 
 @Path("/usuarios")
 @Produces(MediaType.APPLICATION_JSON)
@@ -17,7 +17,7 @@ public class usuarioController {
     @EJB
     private usuarioService usuarioService;
     
-    @POST
+    /*@POST
     public Response createUsers(UsuarioEntity usuario){
         try{
             usuarioService.createUser(usuario);
@@ -32,7 +32,7 @@ public class usuarioController {
     @Path("/{usuId}")
     public Response getUsersById(@PathParam("usuId") Long usuId) {
         try {
-            usuarioDto usuario = usuarioService.getUserById(usuId);
+            UsuarioDto usuario = usuarioService.getUserById(usuId);
             return Response.ok(usuario).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
@@ -74,5 +74,5 @@ public class usuarioController {
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
-    }
+    }*/
 }
