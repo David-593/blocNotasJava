@@ -3,7 +3,7 @@ package com.mycompany.bloc_notas.controller;
 
 import com.company.blocNotas.dto.NotaDto;
 import com.company.blocNotas.service.notaService;
-import com.mycompany.blocNotas.entities.Nota;
+import com.mycompany.blocNotas.entities.NotaEntity;
 import jakarta.ejb.EJB;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.ws.rs.Consumes;
@@ -29,7 +29,7 @@ public class notaController {
     
     //Post
     @POST
-    public Response createNotes(Nota nota) throws Exception{
+    public Response createNotes(NotaDto nota) throws Exception{
         try {
             if (nota == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity("Nota es obligatoria").build();
@@ -70,9 +70,9 @@ public class notaController {
     //Update
     @PUT
     @Path("/{notaId}")
-    public Response updateNote(@PathParam("notaId") Long notaId, Nota notaActualizada){
+    public Response updateNote(@PathParam("notaId") Long notaId, NotaEntity notaActualizada){
         try {
-            Nota notaUpdated = notaService.updateNota(notaId, notaActualizada);
+            NotaEntity notaUpdated = notaService.updateNota(notaId, notaActualizada);
             return Response.ok(notaUpdated).build();
         } catch (EntityNotFoundException e) {
             return Response.status(Response.Status.BAD_REQUEST).build();

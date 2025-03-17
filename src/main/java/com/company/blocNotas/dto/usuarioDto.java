@@ -1,7 +1,7 @@
 
 package com.company.blocNotas.dto;
 
-import com.mycompany.blocNotas.entities.Usuario;
+import com.mycompany.blocNotas.entities.UsuarioEntity;
 import java.time.LocalDate;
 
 
@@ -20,7 +20,7 @@ public class usuarioDto {
     }
 
     // Constructor para convertir un Usuario en un DTO
-    public usuarioDto(Usuario usuario) {
+    public usuarioDto(UsuarioEntity usuario) {
         this.usuId = usuario.getUsuId();
         this.usuNombres = usuario.getUsuNombres();
         this.usuApellidos = usuario.getUsuApellidos();

@@ -3,7 +3,7 @@ package com.mycompany.bloc_notas.controller;
 
 import com.company.blocNotas.dto.usuarioDto;
 import com.company.blocNotas.service.usuarioService;
-import com.mycompany.blocNotas.entities.Usuario;
+import com.mycompany.blocNotas.entities.UsuarioEntity;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
@@ -18,7 +18,7 @@ public class usuarioController {
     private usuarioService usuarioService;
     
     @POST
-    public Response createUsers(Usuario usuario){
+    public Response createUsers(UsuarioEntity usuario){
         try{
             usuarioService.createUser(usuario);
             return Response.status(Response.Status.CREATED).entity(usuario).build();
@@ -42,7 +42,7 @@ public class usuarioController {
     @GET
     public Response getAllUsers(){
         try {
-            List<Usuario> usuarios = usuarioService.getAllUser();
+            List<UsuarioEntity> usuarios = usuarioService.getAllUser();
             if(usuarios.isEmpty()){
                 return Response.status(Response.Status.NO_CONTENT).build();
             }
@@ -55,9 +55,9 @@ public class usuarioController {
     // Actualizar usuario
     @PUT
     @Path("/{usuId}")
-    public Response updateUsers(@PathParam("usuId") Long id, Usuario usuario) {
+    public Response updateUsers(@PathParam("usuId") Long id, UsuarioEntity usuario) {
         try {
-            Usuario updatedUser = usuarioService.updateUser(id, usuario);
+            UsuarioEntity updatedUser = (UsuarioEntity) usuarioService.updateUser(id, usuario);
             return Response.ok(updatedUser).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

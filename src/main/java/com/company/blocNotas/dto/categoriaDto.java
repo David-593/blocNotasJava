@@ -1,7 +1,7 @@
 
 package com.company.blocNotas.dto;
 
-import com.mycompany.blocNotas.entities.Categoria;
+import com.mycompany.blocNotas.entities.CategoriaEntity;
 
 
 public class categoriaDto {
@@ -14,7 +14,7 @@ public class categoriaDto {
     }
     
     //Constructor con parametros 
-    public categoriaDto(Categoria categoria){
+    public categoriaDto(CategoriaEntity categoria){
         this.cateId = categoria.getCateId();
         this.cateNombre = categoria.getCateNombre();
     }

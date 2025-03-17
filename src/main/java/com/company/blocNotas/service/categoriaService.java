@@ -2,7 +2,7 @@
 package com.company.blocNotas.service;
 
 import com.company.blocNotas.dto.categoriaDto;
-import com.mycompany.blocNotas.entities.Categoria;
+import com.mycompany.blocNotas.entities.CategoriaEntity;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,7 +16,7 @@ public class categoriaService {
     private EntityManager em;
     
     //Create
-    public void createCategoria (Categoria categoria) throws Exception{
+    public void createCategoria (CategoriaEntity categoria) throws Exception{
         if (categoria.getCateNombre()== null){
             throw new Exception("Este campo debe ser obligatorio");
         }
@@ -29,7 +29,7 @@ public class categoriaService {
     }
     //Read by id
     public categoriaDto getCategoriaById(Long cateId) throws Exception{
-         Categoria categoria = em.find(Categoria.class, cateId);
+         CategoriaEntity categoria = em.find(CategoriaEntity.class, cateId);
          if (categoria == null){
              throw new Exception("No se ha encontrado esta categoria");
          }
@@ -37,13 +37,13 @@ public class categoriaService {
     }
     
     //Read all categories
-    public List<Categoria> getAllCategorie(){
-        return em.createQuery("SELECT c FROM Categoria c LEFT JOIN FETCH c.notaList", Categoria.class).getResultList();
+    public List<CategoriaEntity> getAllCategorie(){
+        return em.createQuery("SELECT c FROM Categoria c LEFT JOIN FETCH c.notaList", CategoriaEntity.class).getResultList();
     }
     
     //Update
-    public Categoria updateCategoria(Long cateId, String cateNombre)throws EntityNotFoundException{
-        Categoria categoria = em.find(Categoria.class, cateId);
+    public CategoriaEntity updateCategoria(Long cateId, String cateNombre)throws EntityNotFoundException{
+        CategoriaEntity categoria = em.find(CategoriaEntity.class, cateId);
         if(categoria == null){
             throw new EntityNotFoundException("No se ha encontrado esta categoria" + cateId);
         }
@@ -56,7 +56,7 @@ public class categoriaService {
     
     //Delete
     public void deleteCategoria(Long cateId)throws EntityNotFoundException{
-        Categoria categoria = em.find(Categoria.class, cateId);
+        CategoriaEntity categoria = em.find(CategoriaEntity.class, cateId);
         if (categoria == null){
             throw new EntityNotFoundException("No se ha encontrado esta categoria");
         }

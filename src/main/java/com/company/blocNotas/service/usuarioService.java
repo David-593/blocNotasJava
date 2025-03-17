@@ -2,7 +2,7 @@ package com.company.blocNotas.service;
 
 
 import com.company.blocNotas.dto.usuarioDto;
-import com.mycompany.blocNotas.entities.Usuario;
+import com.mycompany.blocNotas.entities.UsuarioEntity;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -16,7 +16,7 @@ public class usuarioService {
     private EntityManager em;
     
     //create
-    public void createUser(Usuario usuario) throws Exception{
+    public void createUser(UsuarioEntity usuario) throws Exception{
         try{
         if (usuario.getUsuNombres() == null || usuario.getUsuApellidos() == null 
             || usuario.getUsuNacimiento() == null || usuario.getUsuEmail() == null 
@@ -40,7 +40,7 @@ public class usuarioService {
     //read user by id
     public usuarioDto getUserById(Long usuId) {
         try {
-            Usuario usuario = em.find(Usuario.class, usuId);
+            UsuarioEntity usuario = em.find(UsuarioEntity.class, usuId);
             if (usuario == null) {
                 throw new IllegalArgumentException("Usuario no encontrado");
             }
@@ -54,14 +54,14 @@ public class usuarioService {
     }
     
     //read all users
-    public List<Usuario> getAllUser(){
-        return em.createQuery("SELECT c FROM Usuario c LEFT JOIN FETCH c.notaList", Usuario.class).getResultList();
+    public List<UsuarioEntity> getAllUser(){
+        return em.createQuery("SELECT c FROM Usuario c LEFT JOIN FETCH c.notaList", UsuarioEntity.class).getResultList();
     }
     
     //update
-    public Usuario updateUser(Long usuId, Usuario usuarioActualizado) {
+    public UsuarioEntity updateUser(Long usuId, UsuarioEntity usuarioActualizado) {
         try {
-            Usuario usuario = em.find(Usuario.class, usuId);
+            UsuarioEntity usuario = em.find(UsuarioEntity.class, usuId);
             if (usuario == null) {
                 throw new IllegalArgumentException("Usuario no encontrado");
             }
@@ -97,7 +97,7 @@ public class usuarioService {
     //delete
     public void deleteUser(Long usuId) {
         try {
-            Usuario usuario = em.find(Usuario.class, usuId);
+            UsuarioEntity usuario = em.find(UsuarioEntity.class, usuId);
             if (usuario == null) {
                 throw new IllegalArgumentException("Usuario no encontrado");
             }

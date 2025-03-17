@@ -3,7 +3,7 @@ package com.mycompany.bloc_notas.controller;
 
 import com.company.blocNotas.dto.categoriaDto;
 import com.company.blocNotas.service.categoriaService;
-import com.mycompany.blocNotas.entities.Categoria;
+import com.mycompany.blocNotas.entities.CategoriaEntity;
 import jakarta.ejb.EJB;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.ws.rs.Consumes;
@@ -23,7 +23,7 @@ public class categoriaController {
     private categoriaService categoriaService;
     //Post
     @POST
-    public Response createCategories(Categoria categoria){
+    public Response createCategories(CategoriaEntity categoria){
         try {
             categoriaService.createCategoria(categoria);
             return Response.status(Response.Status.CREATED).entity(categoria).build();
@@ -48,7 +48,7 @@ public class categoriaController {
     @GET
     public Response getAllCategories(){
         try {
-            List<Categoria> categorias = categoriaService.getAllCategorie();
+            List<CategoriaEntity> categorias = categoriaService.getAllCategorie();
             if (categorias.isEmpty()){
                 return Response.status(Response.Status.NO_CONTENT).build();
             }
@@ -61,10 +61,10 @@ public class categoriaController {
     //Update by id
     @PUT
     @Path("/{cateId}")
-    public Response updateCategorie(@PathParam("cateId") Long cateId, Categoria categoria){
+    public Response updateCategorie(@PathParam("cateId") Long cateId, CategoriaEntity categoria){
         try{
             String cateNombre = categoria.getCateNombre();
-            Categoria categoriaUpdated = categoriaService.updateCategoria(cateId, cateNombre);
+            CategoriaEntity categoriaUpdated = categoriaService.updateCategoria(cateId, cateNombre);
             return Response.ok(categoriaUpdated).build();
         }catch(EntityNotFoundException e){
             return Response.status(Response.Status.BAD_REQUEST).build();
