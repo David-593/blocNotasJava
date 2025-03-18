@@ -14,7 +14,7 @@ public class UsuarioDto {
     private String password;
     private Boolean status;
     
-    //GETTERS Y SETTERS
+    //Constructor vacio
     public UsuarioDto(){
         
 }
