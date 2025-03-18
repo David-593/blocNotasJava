@@ -17,7 +17,7 @@ public class UsuarioDto {
     //GETTERS Y SETTERS
     public UsuarioDto(){
         
-    }
+}
 
     // Constructor para convertir un Usuario en un DTO
     public UsuarioDto(UsuarioEntity usuario) {
