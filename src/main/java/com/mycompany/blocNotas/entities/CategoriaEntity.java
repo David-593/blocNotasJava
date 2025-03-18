@@ -29,7 +29,7 @@ public class CategoriaEntity implements Serializable {
     @NotNull
     @Size(min = 1, max = 64)
     @Column(name = "cate_nombre")
-    private String cateNombre;
+    private String name;
 
     //relacion 
     @OneToMany(fetch = FetchType.LAZY ,cascade = CascadeType.ALL, mappedBy = "cateId")
@@ -41,8 +41,8 @@ public class CategoriaEntity implements Serializable {
     }
     
     //Constructor con parametros 
-    public CategoriaEntity (Long cateId, String cateNombre){
-        this.cateNombre = cateNombre;
+    public CategoriaEntity (Long cateId, String name){
+        this.name = name;
     }
     
     //GETTERS AND SETTERS
@@ -55,12 +55,12 @@ public class CategoriaEntity implements Serializable {
         this.cateId = cateId;
     }
 
-    public String getCateNombre() {
-        return cateNombre;
+    public String getName() {
+        return name ;
     }
 
-    public void setCateNombre(String cateNombre) {
-        this.cateNombre = cateNombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<NotaEntity> getNotaList() {

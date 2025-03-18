@@ -1,7 +1,7 @@
 
 package com.mycompany.bloc_notas.controller;
 
-import com.company.blocNotas.dto.categoriaDto;
+import com.company.blocNotas.dto.CategoriaDto;
 import com.company.blocNotas.service.categoriaService;
 import com.mycompany.blocNotas.entities.CategoriaEntity;
 import jakarta.ejb.EJB;
@@ -37,7 +37,7 @@ public class categoriaController {
     @Path("/{cateId}")
     public Response getCategoriesById(@PathParam("cateId") Long cateId){
         try{
-            categoriaDto categoria = categoriaService.getCategoriaById(cateId);
+            CategoriaDto categoria = categoriaService.getCategoriaById(cateId);
             return Response.ok(categoria).build();
         }catch(Exception e){
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -63,7 +63,7 @@ public class categoriaController {
     @Path("/{cateId}")
     public Response updateCategorie(@PathParam("cateId") Long cateId, CategoriaEntity categoria){
         try{
-            String cateNombre = categoria.getCateNombre();
+            String cateNombre = categoria.getName();
             CategoriaEntity categoriaUpdated = categoriaService.updateCategoria(cateId, cateNombre);
             return Response.ok(categoriaUpdated).build();
         }catch(EntityNotFoundException e){

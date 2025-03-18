@@ -1,7 +1,7 @@
 
 package com.company.blocNotas.service;
 
-import com.company.blocNotas.dto.categoriaDto;
+import com.company.blocNotas.dto.CategoriaDto;
 import com.mycompany.blocNotas.entities.CategoriaEntity;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -17,7 +17,7 @@ public class categoriaService {
     
     //Create
     public void createCategoria (CategoriaEntity categoria) throws Exception{
-        if (categoria.getCateNombre()== null){
+        if (categoria.getName()== null){
             throw new Exception("Este campo debe ser obligatorio");
         }
         try {
@@ -28,12 +28,12 @@ public class categoriaService {
        
     }
     //Read by id
-    public categoriaDto getCategoriaById(Long cateId) throws Exception{
+    public CategoriaDto getCategoriaById(Long cateId) throws Exception{
          CategoriaEntity categoria = em.find(CategoriaEntity.class, cateId);
          if (categoria == null){
              throw new Exception("No se ha encontrado esta categoria");
          }
-         return new categoriaDto(categoria);
+         return new CategoriaDto(categoria);
     }
     
     //Read all categories
@@ -50,7 +50,7 @@ public class categoriaService {
         if(cateNombre == null || cateNombre.trim().isEmpty()){
             throw new IllegalArgumentException("Este nombre no puede ser vacio o nulo");
         }
-        categoria.setCateNombre(cateNombre);
+        categoria.setName(cateNombre);
         return em.merge(categoria);
     }
     
