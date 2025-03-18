@@ -3,10 +3,8 @@ package com.company.blocNotas.Dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import com.mycompany.blocNotas.entities.UsuarioEntity;
+import com.mycompany.blocNotas.entities.CategoriaEntity;
 import jakarta.json.JsonObject;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -15,61 +13,45 @@ public class CategoriaDao {
     @PersistenceContext
     private EntityManager em;
     
-    //Usamos este metodo para crear un usuario
-    public void create(JsonObject jsonEntity){
-        UsuarioEntity user = jsonEntity(jsonEntity);
-        em.persist(user);
+    //Usamos este metodo para crear un categoria
+    public void create(JsonObject jsonCategory){
+        CategoriaEntity category = jsonEntity(jsonCategory);
+        em.persist(category);
     }
     
     //Usamos este metodo para buscar un usuario por id
-    public UsuarioEntity findUser(Long usuId){
-        return em.find(UsuarioEntity.class, usuId);
+    public CategoriaEntity findCategory(Long cateId){
+        return em.find(CategoriaEntity.class, cateId);
     }
     
     //Usamos este metodo para obtener todos los usuarios
-    public List<UsuarioEntity> getUsers(){
-        return em.createQuery("SELECT c FROM Usuario c LEFT JOIN FETCH c.notaList", UsuarioEntity.class).getResultList();
+    public List<CategoriaEntity> getCategories(){
+        return em.createQuery("SELECT c FROM Categoria c LEFT JOIN FETCH c.notaList", CategoriaEntity.class).getResultList();
     }
     
-    public void update(Long usuId, JsonObject userJson){
-        UsuarioEntity usuarioDto = findUser(usuId);
-        if(usuarioDto  != null){
-            UsuarioEntity userUpdated = jsonEntity(userJson);
-            userUpdated.setUsuId(usuId);
-            em.merge(userUpdated);
+    public void update(Long cateId, String name, JsonObject categoryJson){
+        CategoriaEntity category = findCategory(cateId);
+        if(category  != null){
+            CategoriaEntity categoryUpdated = jsonEntity(categoryJson);
+            categoryUpdated.setName(name);
+            em.merge(categoryUpdated);
         }
     }
     
     public void delete(Long usuId){
-        UsuarioEntity usuarioDto = findUser(usuId);
-        if(usuarioDto != null){
-            em.remove(usuarioDto);
+        CategoriaEntity category = findCategory(usuId);
+        if(category != null){
+            em.remove(category);
         }
     }
     
-    private UsuarioEntity jsonEntity(JsonObject userJson){
-        String name = userJson.getString("usuNombres");
-        String lastName = userJson.getString("usuApellidos");
+    private CategoriaEntity jsonEntity(JsonObject categoyJson){
         
-        //Pasar nacimiento a ObjetoJson transforandolo a String
-        String dateStr = userJson.getString("usuNacimiento");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate formatterDate = LocalDate.parse(dateStr, formatter);
-        
-        String email = userJson.getString("usuEmail");
-        Boolean status = userJson.getBoolean("usuEstado");
-        
-        //hashear la contraseña con BCrypt
-        String password = userJson.getString("usuClave");
-        
-        UsuarioEntity user = new UsuarioEntity();
-        user.setName(name);
-        user.setLastName(lastName);
-        user.setBirthDay(formatterDate);
-        user.setEmail(email);
-        user.setStatus(status);
-        user.setPassword(password);
-        
+        String category = categoyJson.getString("name");
+       
+        CategoriaEntity user = new CategoriaEntity();
+        user.setName(category);
+
         return user;
     }
 
