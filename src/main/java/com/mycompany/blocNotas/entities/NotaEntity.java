@@ -27,12 +27,12 @@ public class NotaEntity implements Serializable {
     @NotNull
     @Size(min = 1, max = 48)
     @Column(name = "nota_titulo")
-    private String notaTitulo;
+    private String title;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 256)
     @Column(name = "nota_descripcion")
-    private String notaDescripcion;
+    private String description;
 
     //relaciones con categoria y usuario
     @JoinColumn(name = "cate_id", referencedColumnName = "cate_id")
@@ -48,9 +48,9 @@ public class NotaEntity implements Serializable {
    }
 
    //Constructor con parametros
-   public void Nota ( String notaTitulo,String notaDescripcion, CategoriaEntity cateId, UsuarioEntity usuId){
-    this.notaTitulo = notaTitulo;
-    this.notaDescripcion = notaDescripcion;
+   public void Nota ( String title,String description, CategoriaEntity cateId, UsuarioEntity usuId){
+    this.title = title;
+    this.description = description;
     this.cateId = cateId;
     this.usuId = usuId;
    }
@@ -65,19 +65,19 @@ public class NotaEntity implements Serializable {
     }
 
     public String getNotaTitulo() {
-        return notaTitulo;
+        return title;
     }
 
-    public void setNotaTitulo(String notaTitulo) {
-        this.notaTitulo = notaTitulo;
+    public void setNotaTitulo(String title) {
+        this.title = title;
     }
 
-    public String getNotaDescripcion() {
-        return notaDescripcion;
+    public String getDescripcion() {
+        return description;
     }
 
-    public void setNotaDescripcion(String notaDescripcion) {
-        this.notaDescripcion = notaDescripcion;
+    public void setDescripcion(String description) {
+        this.description = description;
     }
 
     public CategoriaEntity getCateId() {
