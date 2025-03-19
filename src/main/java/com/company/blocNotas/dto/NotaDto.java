@@ -20,7 +20,7 @@ public class NotaDto {
     public NotaDto(NotaEntity nota){
         this.notaId = nota.getNotaId();
         this.notaTitulo = nota.getNotaTitulo();
-        this.notaDescripcion = nota.getNotaDescripcion();
+        this.notaDescripcion = nota.getDescripcion();
         this.cateId = nota.getCateId().getCateId();
         this.usuId = nota.getUsuId().getUsuId();
     }
