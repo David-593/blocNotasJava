@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import com.mycompany.blocNotas.entities.CategoriaEntity;
 import jakarta.json.JsonObject;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 
 
@@ -13,41 +14,52 @@ public class CategoriaDao {
     @PersistenceContext
     private EntityManager em;
     
-    //Usamos este metodo para crear un categoria
-    public void create(JsonObject jsonCategory){
-        CategoriaEntity category = jsonEntity(jsonCategory);
+    //Metodo DAO para crear un categoria
+    public void createCategoryDAO(JsonObject categoryJson){
+        CategoriaEntity category = jsonEntity(categoryJson);
         em.persist(category);
     }
     
-    //Usamos este metodo para buscar un usuario por id
-    public CategoriaEntity findCategory(Long cateId){
+    //Metodo DAO para buscar una categoria por id y devolver todo la categoria
+    public CategoriaEntity findCategoryDAO(Long cateId){
         return em.find(CategoriaEntity.class, cateId);
     }
     
-    //Usamos este metodo para obtener todos los usuarios
-    public List<CategoriaEntity> getCategories(){
+    //Metodo DAO para encontrar solo el id 
+    public boolean existCategoryByIdDAO(Long cateId){
+        Long count = em.createQuery("SELECT COUNT(c) FROM CategoryEntity u WHERE u.cateId = :id ", Long.class)
+                .setParameter("id", cateId)
+                .getSingleResult();
+        return count > 0;
+    }
+    
+    //Metodo DAO para obtener todas las categorias
+    public List<CategoriaEntity> getCategoriesDAO(){
         return em.createQuery("SELECT c FROM Categoria c LEFT JOIN FETCH c.notaList", CategoriaEntity.class).getResultList();
     }
     
-    public void update(Long cateId, String name, JsonObject categoryJson){
-        CategoriaEntity category = findCategory(cateId);
-        if(category  != null){
-            CategoriaEntity categoryUpdated = jsonEntity(categoryJson);
-            categoryUpdated.setName(name);
-            em.merge(categoryUpdated);
-        }
+    //Metodo DAO para actualizar una categoria
+    public void updateDAO(Long cateId, JsonObject categoryJson){
+       if(!existCategoryByIdDAO(cateId)){
+           throw new EntityNotFoundException("Categoria no encontrado para eliminar");
+       }
+        CategoriaEntity categoryUpdated = findCategoryDAO(cateId);
+        categoryUpdated.setCateId(cateId);
+        em.merge(categoryUpdated);
     }
     
-    public void delete(Long usuId){
-        CategoriaEntity category = findCategory(usuId);
-        if(category != null){
-            em.remove(category);
-        }
+    //Metodo DAO para eliminar una categoria
+    public void deleteDAO(Long cateId){
+      if(!existCategoryByIdDAO(cateId)){
+          throw new EntityNotFoundException("Categoria no existe para eliminar");
+      }
+      CategoriaEntity categoryDeleted = findCategoryDAO(cateId);
+      em.remove(categoryDeleted);
     }
     
-    private CategoriaEntity jsonEntity(JsonObject categoyJson){
+    private CategoriaEntity jsonEntity(JsonObject categoryJson){
         
-        String category = categoyJson.getString("name");
+        String category = categoryJson.getString("name");
        
         CategoriaEntity user = new CategoriaEntity();
         user.setName(category);
