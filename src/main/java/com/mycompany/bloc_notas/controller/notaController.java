@@ -1,22 +1,12 @@
 
 package com.mycompany.bloc_notas.controller;
 
-import com.company.blocNotas.dto.NotaDto;
-import com.company.blocNotas.service.notaService;
-import com.mycompany.blocNotas.entities.NotaEntity;
+import com.company.blocNotas.service.imp.NotaService;
 import jakarta.ejb.EJB;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import java.util.List;
 
 
 @Path("/notas")
@@ -25,16 +15,16 @@ import java.util.List;
 public class notaController {
     
     @EJB
-    private notaService notaService;
+    private NotaService notaService;
     
     //Post
-    @POST
+   /* @POST
     public Response createNotes(NotaDto nota) throws Exception{
         try {
             if (nota == null) {
                 return Response.status(Response.Status.BAD_REQUEST).entity("Nota es obligatoria").build();
             }
-            notaService.CreateNota(nota);
+            NotaService.CreateNota(nota);
             return Response.status(Response.Status.CREATED).entity(nota).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -46,7 +36,7 @@ public class notaController {
     @Path("/{notaId}")
     public Response getNotesById(@PathParam("notaId") Long notaId ){
         try {
-            NotaDto nota = notaService.FindByIdNota(notaId);
+            NotaDto nota = NotaService.FindByIdNota(notaId);
             return Response.ok(nota).build();
         } catch (EntityNotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -57,7 +47,7 @@ public class notaController {
     @GET
     public Response getAllNotes(){
         try {
-            List<NotaDto> notas = notaService.findAllNota();
+            List<NotaDto> notas = NotaService.findAllNota();
             if(notas.isEmpty()){
                 return Response.status(Response.Status.NO_CONTENT).build();
             }
@@ -72,7 +62,7 @@ public class notaController {
     @Path("/{notaId}")
     public Response updateNote(@PathParam("notaId") Long notaId, NotaEntity notaActualizada){
         try {
-            NotaEntity notaUpdated = notaService.updateNota(notaId, notaActualizada);
+            NotaEntity notaUpdated = NotaService.updateNota(notaId, notaActualizada);
             return Response.ok(notaUpdated).build();
         } catch (EntityNotFoundException e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -84,10 +74,10 @@ public class notaController {
     @Path("/{notaId}")
     public Response deleteNote(@PathParam("notaId") Long notaId){
         try {
-            notaService.deleteNota(notaId);
+            NotaService.deleteNota(notaId);
             return Response.noContent().build();
         } catch (EntityNotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
-    }
+    }*/
 }
