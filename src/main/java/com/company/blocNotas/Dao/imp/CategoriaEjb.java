@@ -4,7 +4,9 @@ import com.company.blocNotas.Dao.itf.ICategoriaEjb;
 import com.mycompany.blocNotas.entities.Categoria;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless(name = "EJB_CATEGORIA")
 public class CategoriaEjb implements ICategoriaEjb {
@@ -19,21 +21,39 @@ public class CategoriaEjb implements ICategoriaEjb {
     }
 
     @Override
-    public Categoria modifyCategoria(Categoria categoria) throws Exception {
+    public void modifyCategoria(Categoria categoria) throws Exception {
+        if(!existById(categoria.getCateId())){
+            throw new EntityNotFoundException("Entidad con ese id, no existe para actualizar");
+        }
         em.merge(categoria);
-        return categoria;
     }
 
     @Override
-    public Categoria deleteCategoria(Categoria categoria) throws Exception {
+    public void deleteCategoria(Categoria categoria) throws Exception {
+        if(!existById(categoria.getCateId())){
+            throw new EntityNotFoundException("Entidad con ese id, no existe para eliminar");
+        }
         em.remove(categoria);
-        return categoria;
     }
 
     @Override
-    public Categoria getCategoria(Categoria categoria) throws Exception {
-        Categoria cat = em.find(Categoria.class, categoria.getCateId());
-        return cat;
+    public Categoria getCategoriaById(Categoria categoria) throws Exception {
+        if(!existById(categoria.getCateId())){
+            throw new EntityNotFoundException("Ninguna categoria esta asociada con ese id");
+        }
+        Categoria category = em.find(Categoria.class, categoria.getCateId());
+        return category;
+    }
+
+    @Override
+    public List<Categoria> getAllCategorias() throws Exception {
+        return em.createQuery("SELECT c FROM Categoria c LEFT JOIN FETCH c.notaList", Categoria.class)
+                .getResultList();
+    }
+
+    @Override
+    public boolean existById(Integer cateId) throws Exception {
+        return em.find(Categoria.class, cateId) != null;
     }
 
 
