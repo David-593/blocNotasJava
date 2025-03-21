@@ -2,6 +2,7 @@ package com.company.blocNotas.service.itf;
 
 import com.mycompany.blocNotas.entities.Categoria;
 import jakarta.json.JsonObject;
+import java.util.List;
 
 /**
  *
@@ -16,5 +17,7 @@ public interface ICategoriaService {
     Categoria updateCategoria(JsonObject categoriaJson) throws Exception;
     
     Categoria deleteCategoria(JsonObject categoriaJson) throws Exception;
+    
+    List<Categoria> gettAllCategoria(JsonObject categoriaJson) throws Exception;
     
 }
