@@ -12,6 +12,9 @@ import jakarta.ws.rs.core.Response;
 import com.company.blocNotas.service.itf.ICategoriaService;
 import com.mycompany.blocNotas.entities.Categoria;
 import jakarta.json.Json;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonArrayBuilder;
+import java.util.List;
 
 @Path("/categoria")
 @RequestScoped
@@ -39,6 +42,35 @@ public class categoriaController {
             return Response.status(Response.Status.CREATED).entity(jsonResponse).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/allCategories")
+    public Response getAllCategories(JsonObject categoria){
+        try {
+            List<Categoria> categoriaResponse = categoriaService.gettAllCategoria(categoria);
+            if (categoriaResponse.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).entity("no existen categorias").build();
+            }
+            JsonArray jsonArray = categoriaResponse.stream()
+                .map((Categoria categoria1) -> Json.createObjectBuilder()
+                        .add("codigo", categoria1.getCateId())
+                        .add("nombre", categoria1.getCateNombre())
+                        .build())
+                        .collect(Json::createArrayBuilder, JsonArrayBuilder::add, JsonArrayBuilder::add)
+                        .build();
+
+            // Crear el JsonObject final
+            JsonObject jsonResponse = Json.createObjectBuilder()
+                    .add("categorias", jsonArray)
+                    .build();
+
+        return Response.ok(jsonResponse).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
 
