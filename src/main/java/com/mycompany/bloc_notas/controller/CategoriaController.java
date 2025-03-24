@@ -28,7 +28,7 @@ public class CategoriaController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/create")
-    public Response createCategories(JsonObject categoria) {
+    public Response createCategory(JsonObject categoria) {
         try {
             if (!categoria.containsKey("nombre")) {
                 String msg = "nombre campo obligatorio";
@@ -73,55 +73,69 @@ public class CategoriaController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
-
-    //Get by id
-    /* @GET
-    @Path("/{cateId}")
-    public Response getCategoriesById(@PathParam("cateId") Long cateId) {
-        try {
-            CategoriaDto categoria = categoriaService.getCategoriaById(cateId);
-            return Response.ok(categoria).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-    }
-
-    //Get all
-    @GET
-    public Response getAllCategories() {
-        try {
-            List<CategoriaEntity> categorias = categoriaService.getAllCategorie();
-            if (categorias.isEmpty()) {
-                return Response.status(Response.Status.NO_CONTENT).build();
-            }
-            return Response.ok(categorias).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-        }
-    }
-
-    //Update by id
-    @PUT
-    @Path("/{cateId}")
-    public Response updateCategorie(@PathParam("cateId") Long cateId, CategoriaEntity categoria) {
-        try {
-            String cateNombre = categoria.getName();
-            CategoriaEntity categoriaUpdated = categoriaService.updateCategoria(cateId, cateNombre);
-            return Response.ok(categoriaUpdated).build();
-        } catch (EntityNotFoundException e) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-    }
-
+    
     //Delete 
     @DELETE
-    @Path("/{cateId}")
-    public Response deleteCategorie(@PathParam("cateId") Long cateId) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/delete")
+    public Response deleteCategory(JsonObject categoria){
         try {
-            categoriaService.deleteCategoria(cateId);
-            return Response.noContent().build();
-        } catch (EntityNotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+            if(!categoria.containsKey("id")){
+                String str = "Entidad con este id no ha sido encontrada";
+                return Response.status(Response.Status.BAD_REQUEST).entity(str).build();
+            }
+            Categoria categoriaResponse = categoriaService.deleteCategoria(categoria);
+            JsonObject jsonResponse = Json.createObjectBuilder()
+                    .add("id", categoriaResponse.getCateId())
+                    .build();
+            return Response.ok().entity(jsonResponse).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-    }*/
+    }
+
+    //Get by id
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getCategory")
+    public Response getCategoryById(JsonObject categoria){
+        try {
+            if(!categoria.containsKey("id")){
+                String str = "Entidad con este id no ha sido encontrada";
+                return Response.status(Response.Status.BAD_REQUEST).entity(str).build();
+            }
+            Categoria categoriaRespose = categoriaService.getCategoriaById(categoria);
+            JsonObject jsonResponse = Json.createObjectBuilder()
+                    .add("id", categoriaRespose.getCateId())
+                    .add("nombre", categoriaRespose.getCateNombre())
+                    .build();
+            return Response.ok().entity(jsonResponse).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON) 
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/update")
+    public Response updateCategory(JsonObject categoria){
+        try {
+            if(!categoria.containsKey("id")){
+                String str = "Entidad con este id no ha sido encontrada";
+                Response.status(Response.Status.BAD_REQUEST).entity(str).build();
+            }
+            
+            Categoria categoriaResponse = categoriaService.modifyCategoria(categoria);
+            JsonObject jsonResponse = Json.createObjectBuilder()
+                    .add("id", categoriaResponse.getCateId())
+                    .add("nombre", categoriaResponse.getCateNombre()).build();
+            
+            return Response.ok().entity(jsonResponse).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
 }
