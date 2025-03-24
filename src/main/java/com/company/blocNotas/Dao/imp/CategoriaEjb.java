@@ -21,19 +21,24 @@ public class CategoriaEjb implements ICategoriaEjb {
     }
 
     @Override
-    public void modifyCategoria(Categoria categoria) throws Exception {
+    public Categoria modifyCategoria(Categoria categoria) throws Exception {
         if(!existById(categoria.getCateId())){
             throw new EntityNotFoundException("Entidad con ese id, no existe para actualizar");
         }
-        em.merge(categoria);
+        return em.merge(categoria);
     }
 
     @Override
-    public void deleteCategoria(Categoria categoria) throws Exception {
+    public Categoria deleteCategoria(Categoria categoria) throws Exception {
         if(!existById(categoria.getCateId())){
             throw new EntityNotFoundException("Entidad con ese id, no existe para eliminar");
         }
+        
+        //se asocia al em para evitar problemas
+        categoria = em.merge(categoria); 
+        
         em.remove(categoria);
+         return categoria;
     }
 
     @Override
