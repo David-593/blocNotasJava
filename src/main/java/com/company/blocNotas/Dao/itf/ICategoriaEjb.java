@@ -11,9 +11,9 @@ public interface ICategoriaEjb {
     
     Categoria createCategoria(Categoria categoria) throws Exception;
     
-    void modifyCategoria(Categoria categoria) throws Exception;
+    Categoria modifyCategoria(Categoria categoria) throws Exception;
     
-    void deleteCategoria(Categoria categoria) throws Exception;
+    Categoria deleteCategoria(Categoria categoria) throws Exception;
     
     Categoria getCategoriaById (Categoria categoria) throws Exception;
     
