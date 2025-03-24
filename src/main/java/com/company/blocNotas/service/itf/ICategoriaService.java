@@ -14,9 +14,9 @@ public interface ICategoriaService {
     
     Categoria modifyCategoria(JsonObject categoriaJson) throws Exception;
     
-    Categoria updateCategoria(JsonObject categoriaJson) throws Exception;
-    
     Categoria deleteCategoria(JsonObject categoriaJson) throws Exception;
+    
+    Categoria getCategoriaById(JsonObject categoriaJson) throws Exception;
     
     List<Categoria> gettAllCategoria(JsonObject categoriaJson) throws Exception;
     
