@@ -4,7 +4,7 @@ import com.mycompany.blocNotas.entities.Categoria;
 import java.util.List;
 
 /**
- * Creanos una interfaz para mantener el codigo en otro lado
+ * Creamos una interfaz para mantener el codigo en otro lado
  * @author andre
  */
 public interface ICategoriaEjb {
