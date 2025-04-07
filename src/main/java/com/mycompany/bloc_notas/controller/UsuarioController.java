@@ -3,30 +3,39 @@ package com.mycompany.bloc_notas.controller;
 
 //import com.company.blocNotas.dto.UsuarioDto;
 import com.company.blocNotas.service.imp.UsuarioService;
+import com.company.blocNotas.service.itf.ICategoriaService;
 //import com.mycompany.blocNotas.entities.UsuarioEntity;
-import jakarta.ejb.EJB;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.json.JsonObject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 //import java.util.List;
 
-@Path("/usuarios")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Path("/usuario")
+@RequestScoped
 public class UsuarioController {
     
-    @EJB
-    private UsuarioService usuarioService;
+    @Inject
+    private ICategoriaService ICategoriaService;
     
-    /*@POST
-    public Response createUsers(UsuarioEntity usuario){
-        try{
-            UsuarioService.createUser(usuario);
-            return Response.status(Response.Status.CREATED).entity(usuario).build();
-        } catch(Exception e){
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+    //Post
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/create")
+    public Response createUser(JsonObject usuario){
+        try {
+            if(!usuario.containsKey("nombres") || !usuario.containsKey("apellidos")
+                    || !usuario.containsKey("nacimiento") || !usuario.containsKey("email")
+                    || !usuario.containsKey("clave") ){
+                
+            }
+        } catch (Exception e) {
         }
+        return null;
     }
-    
+    /*
     // Obtener usuario por ID
     @GET
     @Path("/{usuId}")
